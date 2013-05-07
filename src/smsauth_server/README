@@ -1,0 +1,1 @@
+sudo python server.py /var/run/smsauth/smsauth_sock

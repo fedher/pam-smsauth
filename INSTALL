@@ -1,0 +1,107 @@
+SMSauth
+=======
+
+
+Requerimientos
+--------------
+
+
+Para poder instalar el módulo pam_smsauth y poder utilizar el servidor SMS, se
+debe tener instalado en el sistema los siguientes paquetes:
+
+
+* PAM (Pluggable Authentication Modules):
+
+	- libpam0g - Biblioteca de PAM.		
+
+	- libpam0g-dev - Archivos de desarrollo para PAM. 
+
+	- libsqlite3 (sqlite3) - Biblioteca escrita en C que implementa 
+	un motor de base de datos SQL.
+
+* Python:
+
+	- simplejson
+
+	- python-gammu - Módulo Python para comunicarse con teléfonos 
+	móviles.
+
+	- libgammu0 - Biblioteca para administrar teléfonos móviles.
+
+
+Instalación
+-----------
+
+Descomprimir el archivo pam_smsauth.tar.bz2 y como root ejecutar:
+
+# make
+# make install
+
+Crear una cuenta administrativa con el nombre de smsauth:
+
+# useradd smsauth -g smsauth
+
+Crear el directorio smsauth en /var/lib:
+
+# mkdir /var/lib/smsauth
+
+Configurar los permisos:
+
+# chown smsauth:smsauth /var/lib/smsauth
+
+Crear el directorio smsauth en /var/log:
+
+# mkdir /var/log/smsauth
+
+Configurar los permisos:
+
+# chown smsauth:smsauth /var/log/smsauth
+
+Crear la base de datos y guardarla en el directorio creado:
+
+# sqlite3 pam_smsauth.db create table pam_status (
+id integer primary key,
+user varchar(30) not null,
+otp varchar(30),
+timestamp integer); 
+
+Configurar los permisos:
+
+# chown smsauth:smsauth /var/lib/smsauth/pam_smsauth.db
+
+Crear el directorio donde se estará el archivo de configuración del
+servidor:
+
+# mkdir /etc/smsauth/
+# cp server.conf /etc/smsauth
+
+Copiar el servidor python a /usr/lib/smsauth:
+
+# cp smsauth_server/* /usr/lib/smsauth
+
+Copiar el script de arranque a /etc/init.d/:
+
+# cp smsauth_server /etc/init.d
+
+Crear una cuenta de usuario:
+
+~# adduser test
+Adding user `test'...
+Adding new group `test' (1001).
+Adding new user `test' (1001) with group `test'.
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+Changing the user information for test
+Enter the new value, or press ENTER for the default
+        Full Name []: [test;261;5010203;cti;]
+        Room Number []: 
+        Work Phone []: 
+        Home Phone []: 
+        Other []: 
+Is the information correct? [y/N] y
+
+~# cat /etc/passwd | grep test
+
+test:x:1001:1001:[test;261;5010203;cti;],,,:/home/test:/bin/bash
+

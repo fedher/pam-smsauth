@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# /etc/init.d/smsauth_server  --  script to start and stop smsauth_server
+
+case "$1" in
+start)
+	echo -n "Starting smsauth_server"
+
+	test -d /var/run/smsauth || mkdir /var/run/smsauth
+	chown smsauth:smsauth /var/run/smsauth
+
+	python /usr/lib/smsauth/server.py /var/run/smsauth/smsauth_sock 2>/dev/null 1>/dev/null &
+
+	echo "."
+	;;
+
+stop)
+	echo -n "Stopping smsauth_server"
+	# ...
+	echo "."
+	;;
+
+restart)
+	$0 stop
+	$0 start
+	;;
+
+*)
+	echo "Usage: /etc/init.d/smsauth_server {start|stop|restart}"
+	exit 1
+	;;
+esac
+
+exit 0
