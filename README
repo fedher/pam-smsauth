@@ -1,5 +1,8 @@
-SMSauth
-=======
+SMSauth (2006)
+==============
+
+This is an old project that I built in 2006 and I haven't updated it since 
+that year.
 
 SMSauth implements a two factor authentication mechanism through a set of 
 applications. This application tries to solve the problems of the traditional 
