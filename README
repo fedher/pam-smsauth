@@ -2,7 +2,7 @@ SMSauth
 =======
 
 SMSauth implements a two factor authentication mechanism through a set of 
-applications. This solution solves the problems of the traditional 
+applications. This application tries to solve the problems of the traditional 
 authentication mechanism.
 
 
