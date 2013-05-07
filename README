@@ -18,8 +18,8 @@ GNU GPL version 2.
 Goals
 -----
 
-SMSauth composes a PAM authentication module, which generates OTPs, with a 
-server that sends them through SMS to the user.
+SMSauth is composed by a PAM authentication module, which generates OTPs, and a
+server that sends those OTPs through SMS to the user.
 
 
 Module services provided
