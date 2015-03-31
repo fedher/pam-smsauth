@@ -1,5 +1,4 @@
-SMSauth (2006)
-==============
+## SMSauth (2006)
 
 This is an old project that I built in 2006 and I haven't updated it since 
 that year.
@@ -9,27 +8,23 @@ applications. This application tries to solve the problems of the traditional
 authentication mechanism.
 
 
-Licence
--------
+## Licence
 
 GNU GPL version 2.
 
 
-Goals
------
+## Goals
 
 SMSauth is composed by a PAM authentication module, which generates OTPs, and a
 server that sends those OTPs through SMS to the user.
 
 
-Module services provided
-------------------------
+## Module services provided
 
 The PAM service supported is auth.
 
 
-Requeriments
-------------
+## Requeriments
 
 To install the pam_smsauth module and be able to run the SMSauth server, the 
 following packets must be installed:
@@ -52,13 +47,13 @@ following packets must be installed:
 	- libgammu0 – Mobile phone management library.
 
 
-Installation
-------------
+## Installation
 
 Uncompress the file pam_smsauth.tar.bz2 and execute as root:
-
+```
 ~# make
 ~# make install
+```
 
 This will create and install the pam_smsauth.so in /lib/security.
 
@@ -67,8 +62,7 @@ pam_smsauth requires and the directories that will contain the configuration
 files and the database.
 
 
-Configuration
--------------
+## Configuration
 
 1) Configuring pam
 
@@ -78,22 +72,22 @@ Edit the /etc/pam.d/ssh or login file. Between "@include common-auccount" and
 * For debugging and testing: debug on, relaxed to avoid setup errors, always 
 exclude root:
 
-------------------------------------------------------------
+```
 auth	requisite	pam_smsauth.so debug relaxed except=root
-------------------------------------------------------------
+```
 
 * The most simple setting (using the default values):
 
-----------------------------------
+```
 auth	required	pam_smsauth.so
-----------------------------------
+```
 
 
 * The secure mode:
 
------------------------------------------------------------------
+```
 auth	required	pam_smsauth.so debug otptype=alfanum otplen=8
------------------------------------------------------------------
+```
 
 
 These are the parameters that can be passed to the module:
@@ -138,6 +132,7 @@ Note: don't forget the final ";".
 
 Example:
 
+```
 ~# adduser pipo
 Adding user `pipo'...
 Adding new group `pipo' (1001).
@@ -157,7 +152,7 @@ Is the information correct? [y/N] y
 ~# cat /etc/passwd | grep pipo
 
 pipo:x:1001:1001:[pipo;261;5010203;cti;],,,:/home/pipo:/bin/bash
-
+```
 
 3) Or edit the GECOS field of the existent user, adding the user info in the 
 specified format.
@@ -165,13 +160,7 @@ specified format.
 
 4) For ssh add to sshd_config file the following option:
 
-----------
+```
 UsePAM yes
-----------
-
-
-Bug reporting
--------------
-
-If you find any bug, please don't hesitate to contact me by email.
+```
 
